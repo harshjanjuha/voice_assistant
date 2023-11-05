@@ -4,7 +4,7 @@ import os
 import time
 import json
 
-with open(') as file:
+with open('') as file:
     settings = json.load(file)
 
 URL = settings['url']

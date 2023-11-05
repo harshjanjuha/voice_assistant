@@ -13,7 +13,8 @@ voices = engine.getProperty('voices')
 engine.setProperty('rate', 175)     
 engine.setProperty('voice', voices[1].id) 
 
-dic= {'Name' : 'email'}
+dic= {'harsh' : 'harshjanjuha@gmail.com',
+      'manav': 'loonamanav2002@gmail.com'}
 
 def speak(audio):
     print(audio)
@@ -34,12 +35,21 @@ def wishMe(name):
     
 
 def sendEmail(to, content):
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.ehlo()
-    server.starttls()
-    server.login('email@gmail.com', 'your-password')
-    server.sendmail('email@gmail.com', to, content)
-    server.close()  
+    try :
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.ehlo()
+        server.starttls()
+        sender_email = 'akhilkalsi1902@gmail.com'
+        sender_pass = 'ohyozkcwefxslbkr'
+        to_list = to.split(' ')
+        server.login(sender_email, sender_pass)
+        for name in to_list:
+            if name.lower() in dic.keys():
+                recipient_email = dic.get(name.lower())
+                server.sendmail(sender_email, recipient_email, content)
+        server.close()
+    except Exception as e:
+        print('Exception',e)
 
 def takeCommand():
     r = sr.Recognizer()
@@ -54,7 +64,7 @@ def takeCommand():
         print(f"User said: {query}\n")
     except Exception as e:
         speak("Say that again please...")
-        return "None"
+        return takeCommand()
     return query
 
 
@@ -146,7 +156,9 @@ def listenCommand():
             try:
                 speak("To whom? ")
                 to = takeCommand()
-                print(to)
+                while not to:
+                    print('Can you please say that again!')
+                    to = takeCommand()
                 speak("What should I say?")
                 content = takeCommand()
                 print (content)
