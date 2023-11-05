@@ -13,8 +13,8 @@ voices = engine.getProperty('voices')
 engine.setProperty('rate', 175)     
 engine.setProperty('voice', voices[1].id) 
 
-dic= {'harsh' : 'harshjanjuha@gmail.com',
-      'manav': 'loonamanav2002@gmail.com'}
+dic= {'REC1' : 'RECIEVER1@gmail.com',
+      'REC2': 'RECIEVER2@gmail.com'}
 
 def speak(audio):
     print(audio)
@@ -39,8 +39,8 @@ def sendEmail(to, content):
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.ehlo()
         server.starttls()
-        sender_email = 'akhilkalsi1902@gmail.com'
-        sender_pass = 'ohyozkcwefxslbkr'
+        sender_email = 'SENDER_EMAIL@gmail.com'
+        sender_pass = ''
         to_list = to.split(' ')
         server.login(sender_email, sender_pass)
         for name in to_list:
